@@ -1,0 +1,253 @@
+Alright — this is exactly what you need right now: **one clean, exam-ready Jupyter notebook script** that covers everything. No fluff, no confusion.
+
+You’ll paste this into Jupyter and run cell-by-cell.
+
+---
+
+# ⚠️ Before you run
+
+* This uses built-in dataset → works offline
+* Covers: preprocessing + all major algorithms + metrics
+
+---
+
+# 🧠 FINAL MASTER NOTEBOOK CODE
+
+```python
+# ================================
+# 1. IMPORTS
+# ================================
+import numpy as np
+import pandas as pd
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+# Models
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LinearRegression
+
+# Clustering
+from sklearn.cluster import KMeans, DBSCAN
+
+print("All libraries loaded successfully!")
+```
+
+---
+
+```python
+# ================================
+# 2. LOAD DATASET
+# ================================
+data = load_iris()
+
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = pd.Series(data.target)
+
+print("Dataset Loaded")
+print(X.head())
+```
+
+---
+
+```python
+# ================================
+# 3. PREPROCESSING
+# ================================
+
+# Check missing values
+print(X.isnull().sum())
+
+# Feature Scaling
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+print("Data Preprocessed (Scaled)")
+```
+
+---
+
+```python
+# ================================
+# 4. TRAIN TEST SPLIT
+# ================================
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+print("Data Split Done")
+```
+
+---
+
+# 🌳 DECISION TREE
+
+```python
+print("\n--- Decision Tree ---")
+dt = DecisionTreeClassifier()
+dt.fit(X_train, y_train)
+
+y_pred = dt.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+```
+
+---
+
+# 🤝 KNN
+
+```python
+print("\n--- KNN ---")
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
+
+y_pred = knn.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+```
+
+---
+
+# 📊 NAIVE BAYES
+
+```python
+print("\n--- Naive Bayes ---")
+nb = GaussianNB()
+nb.fit(X_train, y_train)
+
+y_pred = nb.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+```
+
+---
+
+# 🧠 SVM
+
+```python
+print("\n--- SVM ---")
+svm = SVC()
+svm.fit(X_train, y_train)
+
+y_pred = svm.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+```
+
+---
+
+# 🌲 RANDOM FOREST (TREE ENSEMBLE)
+
+```python
+print("\n--- Random Forest ---")
+rf = RandomForestClassifier()
+rf.fit(X_train, y_train)
+
+y_pred = rf.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+```
+
+---
+
+# 📉 LINEAR REGRESSION (Just for demo)
+
+```python
+print("\n--- Linear Regression ---")
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+
+y_pred = lr.predict(X_test)
+
+print("Sample Predictions:", y_pred[:5])
+```
+
+---
+
+# 🔁 K-FOLD CROSS VALIDATION
+
+```python
+print("\n--- Cross Validation (Decision Tree) ---")
+scores = cross_val_score(dt, X_scaled, y, cv=5)
+
+print("Scores:", scores)
+print("Mean Accuracy:", scores.mean())
+```
+
+---
+
+# 🔵 K-MEANS (UNSUPERVISED)
+
+```python
+print("\n--- KMeans Clustering ---")
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(X_scaled)
+
+print("Cluster Labels:", kmeans.labels_[:10])
+```
+
+---
+
+# 🔴 DBSCAN (UNSUPERVISED)
+
+```python
+print("\n--- DBSCAN Clustering ---")
+db = DBSCAN(eps=0.5, min_samples=5)
+db.fit(X_scaled)
+
+print("Cluster Labels:", db.labels_[:10])
+```
+
+---
+
+# 📊 FINAL METRICS REPORT
+
+```python
+print("\n--- Classification Report (Random Forest) ---")
+y_pred = rf.predict(X_test)
+
+print(classification_report(y_test, y_pred))
+```
+
+---
+
+# 🧠 HOW TO USE IN EXAM
+
+If question says:
+
+* “Decision Tree” → run that section
+* “Compare models” → run multiple + show accuracy
+* “Clustering” → run KMeans / DBSCAN
+* “Cross validation” → show that block
+
+---
+
+# ⚡ LAST MINUTE HACK
+
+Before exam:
+👉 Run this once
+👉 Understand flow
+👉 Don’t try to memorize everything
+
+---
+
+# 🧨 Real Talk
+
+If you remember:
+
+* Template
+* Model import
+* 1 line explanation
+
+You’ll pass comfortably.
+
+---
+
+If you want, next:
+👉 I’ll take a **mock viva right now** and grill you like examiner
+(That’s the fastest way to lock confidence before tomorrow)
